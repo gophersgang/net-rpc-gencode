@@ -45,24 +45,22 @@ func (t *Arith) Mul(args *Args, reply *Reply) error {
 	return nil
 }
 
-
-
 func main() {
 	rpc.Register(new(Arith))
-	ln, e := net.Listen("tcp", "127.0.0.1:4321") // any available address
+	ln, e := net.Listen("tcp", "127.0.0.1:5432") // any available address
 	if e != nil {
 		log.Fatalf("net.Listen tcp :0: %v", e)
 	}
 	defer ln.Close()
 
 	for {
-			c, err := ln.Accept()
-			if err != nil {
-				continue
-			}
-			go gencode.ServeConn(c)
-
+		c, err := ln.Accept()
+		if err != nil {
+			continue
 		}
+		go ServeConn(c)
+
+	}
 }
 ```
 
@@ -79,9 +77,9 @@ import (
 )
 
 func main() {
-	client, err := gencode.DialTimeout("tcp", address, time.Minute)
+	client, err := DialTimeout("tcp", "127.0.0.1:5432", time.Minute)
 	if err != nil {
-		t.Error("dialing:", err)
+		fmt.Println("dialing:", err)
 	}
 
 	defer client.Close()
@@ -91,9 +89,9 @@ func main() {
 	var reply Reply
 	err = client.Call("Arith.Mul", args, &reply)
 	if err != nil {
-		t.Error("arith error:", err)
+		fmt.Println("arith error:", err)
 	} else {
-		t.Logf("Arith: %d*%d=%d", args.A, args.B, reply.C)
+		fmt.Printf("Arith: %d*%d=%d\n", args.A, args.B, reply.C)
 	}
 }
 ```
