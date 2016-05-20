@@ -1,4 +1,4 @@
-package gencodec
+package gencodec_test
 
 import (
 	"fmt"
@@ -6,6 +6,7 @@ import (
 	"net"
 	"net/rpc"
 	"time"
+	"github.com/smallnest/net-rpc-gencode"
 )
 
 type MyArith int
@@ -30,12 +31,12 @@ func ExampleServerAndClient() {
 			if err != nil {
 				continue
 			}
-			go ServeConn(c)
+			go gencodec.ServeConn(c)
 
 		}
 	}()
 
-	client, err := DialTimeout("tcp", address, time.Minute)
+	client, err := gencodec.DialTimeout("tcp", address, time.Minute)
 	if err != nil {
 		fmt.Println("dialing:", err)
 	}
@@ -44,7 +45,7 @@ func ExampleServerAndClient() {
 
 	// Synchronous call
 	args := &Args{7, 8}
-	var reply Reply
+	var reply gencodec.Reply
 	err = client.Call("MyArith.Mul", args, &reply)
 	if err != nil {
 		fmt.Println("arith error:", err)

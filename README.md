@@ -58,7 +58,7 @@ func main() {
 		if err != nil {
 			continue
 		}
-		go ServeConn(c)
+		go gencodec.ServeConn(c)
 
 	}
 }
@@ -77,7 +77,7 @@ import (
 )
 
 func main() {
-	client, err := DialTimeout("tcp", "127.0.0.1:5432", time.Minute)
+	client, err := gencodec.DialTimeout("tcp", "127.0.0.1:5432", time.Minute)
 	if err != nil {
 		fmt.Println("dialing:", err)
 	}
@@ -85,7 +85,7 @@ func main() {
 	defer client.Close()
 
 	// Synchronous call
-	args := &Args{7, 8}
+	args := &gencodec.Args{7, 8}
 	var reply Reply
 	err = client.Call("Arith.Mul", args, &reply)
 	if err != nil {
