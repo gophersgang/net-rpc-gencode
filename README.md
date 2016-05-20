@@ -1,4 +1,6 @@
 # net-rpc-gencode
+[![GoDoc](https://godoc.org/github.com/smallnest/net-rpc-gencode?status.png)](http://godoc.org/github.com/smallnest/net-rpc-gencode) [![Drone Build Status](https://drone.io/github.com/smallnest/net-rpc-gencode/status.png)](https://drone.io/github.com/smallnest/net-rpc-gencode/latest) [![Go Report Card](http://goreportcard.com/badge/smallnest/net-rpc-gencode)](http://goreportcard.com/report/smallnest/net-rpc-gencode)
+
 This library provides the same functions as net/rpc/jsonrpc but for communicating with [gencode](https://github.com/andyleap/gencode) instead. The library is modeled directly after the Go standard library so it should be easy to use and obvious.
 
 See the [GoDoc](https://godoc.org/github.com/smallnest/net-rpc-gencode) for API documentation.

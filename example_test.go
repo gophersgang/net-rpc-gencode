@@ -11,7 +11,7 @@ import (
 
 type MyArith int
 
-func (t *MyArith) Mul(args *Args, reply *Reply) error {
+func (t *MyArith) Mul(args *gencodec.Args, reply *gencodec.Reply) error {
 	reply.C = args.A * args.B
 	return nil
 }
@@ -44,7 +44,7 @@ func ExampleServerAndClient() {
 	defer client.Close()
 
 	// Synchronous call
-	args := &Args{7, 8}
+	args := &gencodec.Args{7, 8}
 	var reply gencodec.Reply
 	err = client.Call("MyArith.Mul", args, &reply)
 	if err != nil {
