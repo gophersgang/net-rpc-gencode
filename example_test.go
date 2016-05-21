@@ -16,7 +16,7 @@ func (t *MyArith) Mul(args *gencodec.Args, reply *gencodec.Reply) error {
 	return nil
 }
 
-func ExampleServerAndClient() {
+func Example() {
 	rpc.Register(new(MyArith))
 	ln, e := net.Listen("tcp", "127.0.0.1:0") // any available address
 	if e != nil {
